@@ -28,7 +28,7 @@ void print_grid(const vector<vector<int>>& grid)
 
 vector<vector<int>> load_grid(std::string filename)
 {
-	vector<vector<int>> grid;
+	vector<vector<int>> grid(9, vector<int>(9, 0));
 
 	std::ifstream file(filename);
 	if (file.is_open())
@@ -106,7 +106,7 @@ bool solve(vector<vector<int>>& grid)
 
 int main()
 {
-	auto grid = load_grid("grid.txt");
+	auto grid = load_grid("test.txt");
 
 	print_grid(grid);
 	std::cout << '\n';

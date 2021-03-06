@@ -28,7 +28,7 @@ void print_grid(const vector<vector<int>>& grid)
 
 vector<vector<int>> load_grid(std::string filename)
 {
-	vector<vector<int>> grid(9, vector<int>(9, 0));
+	vector<vector<int>> grid;
 
 	std::ifstream file(filename);
 	if (file.is_open())
@@ -39,15 +39,22 @@ vector<vector<int>> load_grid(std::string filename)
 			vector<int> row;
 			for (char ch : line)
 			{
-				row.push_back(ch - '0'); // Convert char to int
+				if (isdigit(ch))
+					row.push_back(ch - '0'); // Convert char to int
+				else
+					row.push_back(0);
 			}
 			grid.push_back(row);
 		}
 		file.close();
 	}
 	else
+	{
 		std::cerr << "Unable to open file \"" << filename << "\" \n";
-
+		// Return 2D vector with all values 0
+		vector<vector<int>> grid(9, vector<int>(9, 0));
+		return grid;
+	}
 	return grid;
 }
 
@@ -87,6 +94,7 @@ bool solve(vector<vector<int>>& grid)
 			// Find empty square
 			if (grid[y][x] == 0)
 			{
+				// Try all possible choices
 				for (int num = 1; num <= 9; num++)
 				{
 					if (possible(grid, x, y, num))
@@ -106,7 +114,7 @@ bool solve(vector<vector<int>>& grid)
 
 int main()
 {
-	auto grid = load_grid("test.txt");
+	auto grid = load_grid("grid.txt");
 
 	print_grid(grid);
 	std::cout << '\n';

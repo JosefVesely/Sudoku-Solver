@@ -52,8 +52,8 @@ vector<vector<int>> load_grid(std::string filename)
 	{
 		std::cerr << "Unable to open file \"" << filename << "\" \n";
 		// Return 2D vector with all values 0
-		vector<vector<int>> grid(9, vector<int>(9, 0));
-		return grid;
+		vector<vector<int>> blank(9, vector<int>(9, 0));
+		return blank;
 	}
 	return grid;
 }
